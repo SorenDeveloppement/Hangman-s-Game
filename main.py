@@ -1,31 +1,29 @@
 import random
 
-words: list = ["banane", "coco", "amende"]
-after: str = ""
-already: str = ""
 
-
-def game(word: str):
-    global after
-    global already
+def game(wordToFind: str):
+    after: str = ""
+    already: str = ""
 
     run: bool = True
-    after = "_" * len(word)
+    after = "_" * (len(wordToFind) - 1)
 
     print("Pendu. Trouvez le bon mot !")
     while run:
+        print(after.find("_"))
+        print(after, wordToFind, after == wordToFind)
         aword: list = []
         letter: str = input("Proposez une lettre : ")
         if not (letter in already):
-            if letter in word:
-                for i in range(len(word)):
-                    if letter == word[i]:
+            if letter in wordToFind:
+                for i in range(0, len(wordToFind) - 1):
+                    if letter == wordToFind[i]:
                         aword.append(letter)
                     else:
                         aword.append(after[i])
                 after = ''.join(aword)
                 print(after)
-                if word == after:
+                if after.find("_") == -1:
                     print("Vous avez gagné !\n")
                     run = False
             else:
@@ -37,4 +35,14 @@ def game(word: str):
 
 
 while True:
-    game(words[random.randint(0, len(words) - 1)])
+    word = None
+    with open("dic.txt", 'r') as f:
+        lines = f.readlines()
+        rdm = random.randint(0, len(lines))
+        print(len(lines))
+        for i, line in enumerate(lines):
+            if i == rdm:
+                print(i, line)
+                word = line.lower()
+
+    game(word)
