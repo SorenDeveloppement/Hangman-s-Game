@@ -10,8 +10,6 @@ def game(wordToFind: str):
 
     print("Pendu. Trouvez le bon mot !")
     while run:
-        print(after.find("_"))
-        print(after, wordToFind, after == wordToFind)
         aword: list = []
         letter: str = input("Proposez une lettre : ")
         if not (letter in already):
@@ -39,10 +37,8 @@ while True:
     with open("dic.txt", 'r') as f:
         lines = f.readlines()
         rdm = random.randint(0, len(lines))
-        print(len(lines))
         for i, line in enumerate(lines):
             if i == rdm:
-                print(i, line)
                 word = line.lower()
 
     game(word)
